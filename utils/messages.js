@@ -1,4 +1,4 @@
-const moment = require("moment");
+const moment = require("moment");//to get current date-time
 
 function formatMessage(username, text) {
   return {

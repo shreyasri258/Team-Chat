@@ -14,7 +14,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-// Set static dir
+// Set static directory
 app.use(express.static(path.join(__dirname, "public")));
 
 // Set Timezone
@@ -22,7 +22,7 @@ process.env.TZ = "Asia/Jakarta";
 
 const botName = "Mederator Bot";
 
-// Run when client connects
+// Runs when client connects
 io.on("connection", (socket) => {
   // Listen from joinRoom
   socket.on("joinRoom", ({ username, room }) => {
@@ -38,6 +38,7 @@ io.on("connection", (socket) => {
     );
 
     // Broadcast when a user connects to a specific room's name
+    //Broadcast to every body except the user 
     socket.broadcast
       .to(room)
       .emit(
@@ -59,10 +60,10 @@ io.on("connection", (socket) => {
     io.to(user.room).emit("message", formatMessage(user.username, msg));
   });
 
-  // Run when client disconnects
+  // Runs when client disconnects
   socket.on("disconnect", () => {
     const user = userLeave(socket.id);
-
+//for every one to know that a user left
     if (user) {
       io.to(user.room).emit(
         "message",

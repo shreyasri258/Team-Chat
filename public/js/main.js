@@ -1,3 +1,4 @@
+//accesing the form-data
 const chatForm = document.getElementById("chat-form");
 const chatMessages = document.querySelector(".chat-messages");
 const roomName = document.getElementById("room-name");
@@ -25,13 +26,14 @@ socket.on("roomUsers", ({ room, users }) => {
 socket.on("message", (message) => {
   outputMessage(message);
 
-  // Scroll down
+  // Scroll's down automatically
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
 // Message submit
 chatForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+  //on submitting a form it automatically submits to a file,to avoid that :
+  e.preventDefault(); 
 
   // Get message text
   const msg = e.target.elements.msg.value;
